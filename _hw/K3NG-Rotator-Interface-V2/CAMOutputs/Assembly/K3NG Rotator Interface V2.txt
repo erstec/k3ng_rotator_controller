@@ -1,0 +1,13 @@
+Partlist exported from C:/_repo/_fw/k3ng_rotator_controller/_hw/K3NG-Rotator-Interface-V2/K3NG Rotator Interface V2.sch at 2023-08-18 22:15
+
+Qty Value                Device               Package              Parts                                     Description                                                  MF MPN OC_FARNELL POPULARITY
+9                        M02PTH               1X02                 CCW, CW, CW1, CW2, CW3, CW5, CW6, DWN, UP Header 2                                                                                 
+3                        TRANSISTOR_NPNSOT23  SOT23                Q2, Q4, Q5                                Transistor NPN                                                                           
+5   0.1µF                CAP0603-CAP          0603-CAP             C1, C6, C7, C12, C14                      Capacitor                                                                                
+3   1N4148DO35-7         1N4148DO35-7         DO35-7               D1, D2, D3                                DIODE                                                                          58        
+5   1k                   RESISTOR0805-RES     0805                 R1, R3, R4, R9, R10                       Resistor                                                                                 
+3   APF30212C            APF30212C            APF30212C            K1, K2, K3                                Compliant with European standards 1a/1c 6A Slim power relays        unknown    0         
+1   ARDUINO_SHIELDLABEL  ARDUINO_SHIELDLABEL  DUEMILANOVE_SHIELD   U1                                                                                                                                 
+2   AVR_SPI_PRG_6NS      AVR_SPI_PRG_6NS      2X3-NS               J1, J2                                    AVR ISP 6 Pin                                                                            
+1   LCD-16X2NOHOLES      LCD-16X2NOHOLES      LCD-16X2_NOHOLES     U2                                                                                                                                 
+1   TYCO_ELECTRONICS_POT TYCO_ELECTRONICS_POT TYCO_ELECTRONICS_POT U$2                                                                                                                                
