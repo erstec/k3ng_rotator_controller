@@ -150,7 +150,7 @@ You can tweak these, but read the online documentation!
 #define LCD_HHMM_CLOCK_ROW 1
 #define PARKING_STATUS_DISPLAY_TIME_MS 5000
 
-#define AZ_BRAKE_DELAY 3000            // in milliseconds
+#define AZ_BRAKE_DELAY 500            // in milliseconds
 #define EL_BRAKE_DELAY 3000            // in milliseconds
 
 #define BRAKE_ACTIVE_STATE HIGH
