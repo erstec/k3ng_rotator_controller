@@ -2,7 +2,7 @@
 /* -------------------------- rotation settings ---------------------------------------*/
 
 #define AZIMUTH_STARTING_POINT_EEPROM_INITIALIZE 180      // the starting point in degrees of the azimuthal rotator - only used for initializing EEPROM the first time the code is run                                               
-#define AZIMUTH_ROTATION_CAPABILITY_EEPROM_INITIALIZE 450 // the default rotation capability of the rotator in degrees - only used for initializing EEPROM the first time the code is run
+#define AZIMUTH_ROTATION_CAPABILITY_EEPROM_INITIALIZE 360 // the default rotation capability of the rotator in degrees - only used for initializing EEPROM the first time the code is run
 
 /* 
 
@@ -59,7 +59,7 @@ You can tweak these, but read the online documentation!
 
 #define SLOW_DOWN_BEFORE_TARGET_AZ 10.0  // if slow down is enabled, slowdown will be activated within this many degrees of target azimuth
 #define AZ_SLOW_DOWN_PWM_START 200         // starting PWM value for slow down (must be < 256)
-#define	AZ_SLOW_DOWN_PWM_STOP 20          // ending PWM value for slow down (must be < 256)
+#define  AZ_SLOW_DOWN_PWM_STOP 20          // ending PWM value for slow down (must be < 256)
 #define AZ_SLOW_DOWN_STEPS 200 //20       // must be < 256
 #define AZ_INITIALLY_IN_SLOW_DOWN_PWM 50  // PWM value to start at if we're starting in the slow down zone (1 - 255)
 
@@ -72,7 +72,7 @@ You can tweak these, but read the online documentation!
 
 #define SLOW_DOWN_BEFORE_TARGET_EL 10.0  // if slow down is enabled, slowdown will be activated within this many degrees of target elevation
 #define EL_SLOW_DOWN_PWM_START 200         // starting PWM value for slow down (must be < 256)
-#define	EL_SLOW_DOWN_PWM_STOP 20          // ending PWM value for slow down (must be < 256)
+#define EL_SLOW_DOWN_PWM_STOP 20          // ending PWM value for slow down (must be < 256)
 #define EL_SLOW_DOWN_STEPS 20
 #define EL_INITIALLY_IN_SLOW_DOWN_PWM 50  // PWM value to start at if we're starting in the slow down zone (1 - 255)
 
@@ -83,6 +83,7 @@ You can tweak these, but read the online documentation!
 #define AZ_VARIABLE_FREQ_OUTPUT_HIGH 1000   // Frequency in hertz of maximum speed (FEATURE_STEPPER_MOTOR maximum value 2000 unless you change OPTION_STEPPER_MOTOR_MAX_X_KHZ in features file)
 #define EL_VARIABLE_FREQ_OUTPUT_LOW   31    // Frequency in hertz of minimum speed (rotate_up_freq, rotate_down_freq minimum value: 31 !)
 #define EL_VARIABLE_FREQ_OUTPUT_HIGH 1000   // Frequency in hertz of maximum speed (FEATURE_STEPPER_MOTOR maximum value: 2000 unless you change OPTION_STEPPER_MOTOR_MAX_X_KHZ in features file)
+
 
 // Settings for OPTION_AZ_MANUAL_ROTATE_LIMITS
 #define AZ_MANUAL_ROTATE_CCW_LIMIT 0   // if using a rotator that starts at 180 degrees, set this to something like 185
@@ -107,11 +108,14 @@ You can tweak these, but read the online documentation!
 #define ENCODER_PRESET_TIMEOUT 5000
 
 // various code settings
-#define AZIMUTH_TOLERANCE 3.0            // rotator will stop within X degrees when doing autorotation
+#define AZIMUTH_TOLERANCE 1.0            // rotator will stop within X degrees when doing autorotation
 #define ELEVATION_TOLERANCE 0.1 //1.0
 
-#define OPERATION_TIMEOUT 120000        // timeout for any rotation operation in mS ; 120 seconds is usually enough unless you have the speed turned down
-#define MASTER_REMOTE_LINK_PING_TIME_MS 5000
+#if defined(FEATURE_REMOTE_UNIT_SLAVE)
+  #define OPERATION_TIMEOUT 1000           // timeout for remote unit any rotation operation in mS - 1 seconds
+#else
+   #define OPERATION_TIMEOUT 120000        // timeout for any rotation operation in mS ; 120 seconds is usually enough unless you have the speed turned down
+#endif
 
 #define TIMED_INTERVAL_ARRAY_SIZE 20
 
@@ -122,8 +126,8 @@ You can tweak these, but read the online documentation!
 #define LCD_HHMMSS_CLOCK_POSITION LEFT          //LEFT or RIGHT
 #define LCD_ALT_HHMM_CLOCK_AND_MAIDENHEAD_POSITION LEFT
 #define LCD_ALT_HHMM_CLOCK_AND_MAIDENHEAD_ROW 1
-#define LCD_CONSTANT_HHMMSS_CLOCK_AND_MAIDENHEAD_POSITION CENTER
-#define LCD_CONSTANT_HHMMSS_CLOCK_AND_MAIDENHEAD_ROW 3
+#define LCD_CONSTANT_HHMMSS_CLOCK_AND_MAIDENHEAD_POSITION LEFT
+#define LCD_CONSTANT_HHMMSS_CLOCK_AND_MAIDENHEAD_ROW 1
 #define LCD_BIG_CLOCK_ROW 4
 #define LCD_GPS_INDICATOR_POSITION RIGHT //LEFT or RIGHT
 #define LCD_GPS_INDICATOR_ROW 1
@@ -139,10 +143,6 @@ You can tweak these, but read the online documentation!
 
 #define LCD_HEADING_ROW 2
 #define LCD_HEADING_FIELD_SIZE 20
-#define LCD_AZ_ONLY_HEADING_ROW 1
-#define LCD_AZ_ONLY_HEADING_FIELD_SIZE 20
-#define LCD_EL_ONLY_HEADING_ROW 2
-#define LCD_EL_ONLY_HEADING_FIELD_SIZE 20
 #define LCD_STATUS_ROW 1
 #define LCD_STATUS_FIELD_SIZE 20
 #define LCD_DIRECTION_ROW 1
@@ -204,6 +204,7 @@ You can tweak these, but read the online documentation!
 #define MOON_AOS_ELEVATION_MIN 0
 #define MOON_AOS_ELEVATION_MAX 180
 
+ 
 #define SUN_TRACKING_CHECK_INTERVAL 5000 // This is only written to the configuration upon first boot of the code or when EEPROM_MAGIC_NUMBER is changed in rotator.h
 #define SUN_AOS_AZIMUTH_MIN 0
 #define SUN_AOS_AZIMUTH_MAX 360
@@ -267,12 +268,8 @@ You can tweak these, but read the online documentation!
 //   #define AZIMUTH_CALIBRATION_TO_ARRAY {359,0}
 
 
-#define ELEVATION_CALIBRATION_FROM_ARRAY {-360,0,360}
-#define ELEVATION_CALIBRATION_TO_ARRAY {-360,0,360}
-
-// example: reverse elevation sensing
-//#define ELEVATION_CALIBRATION_FROM_ARRAY {0,180,360}
-//#define ELEVATION_CALIBRATION_TO_ARRAY {180,0,-180}
+#define ELEVATION_CALIBRATION_FROM_ARRAY {-180,0,180}
+#define ELEVATION_CALIBRATION_TO_ARRAY {-180,0,180}
 
 #define ANALOG_OUTPUT_MAX_EL_DEGREES 180
 
@@ -299,10 +296,10 @@ You can tweak these, but read the online documentation!
 #define POLOLU_LSM_303_MAX_ARRAY {+909, +491, +14}
 
 #define AUTOCORRECT_TIME_MS_AZ 1000
-#define AUTOCORRECT_TIME_MS_EL 1000
+#define AUTOCORRECT_TIME_MS_EL 1000 
 
 #define PIN_LED_ACTIVE_STATE HIGH
-#define PIN_LED_INACTIVE_STATE LOW   
+#define PIN_LED_INACTIVE_STATE LOW 
 
 #define AUDIBLE_ALERT_TYPE 1   // 1 = Logic high/low (set AUDIBLE_PIN_ACTIVE_STATE and AUDIBLE_PIN_INACTIVE_STATE below, 2 = tone (set AUDIBLE_PIN_TONE_FREQ below)
 #define AUDIBLE_ALERT_DURATION_MS 250
@@ -310,13 +307,13 @@ You can tweak these, but read the online documentation!
 #define AUDIBLE_PIN_INACTIVE_STATE LOW
 #define AUDIBLE_PIN_TONE_FREQ 1000
 #define AUDIBLE_ALERT_AT_STARTUP 1
-#define AUDIBLE_ALERT_AT_AZ_TARGET 1    // factory default setting
-#define AUDIBLE_ALERT_AT_EL_TARGET 1    // factory default setting
+#define AUDIBLE_ALERT_AT_AZ_TARGET 1
+#define AUDIBLE_ALERT_AT_EL_TARGET 1
 
 #define OVERLAP_LED_ACTIVE_STATE HIGH
-#define OVERLAP_LED_INACTIVE_STATE LOW  
+#define OVERLAP_LED_INACTIVE_STATE LOW   
 
-#define PRESET_ENCODER_CHANGE_TIME_MS 2000 
+#define PRESET_ENCODER_CHANGE_TIME_MS 2000  
 
 // FEATURE_AZ_ROTATION_STALL_DETECTION
 #define STALL_CHECK_FREQUENCY_MS_AZ 2000
@@ -324,7 +321,7 @@ You can tweak these, but read the online documentation!
 // FEATURE_EL_ROTATION_STALL_DETECTION
 #define STALL_CHECK_FREQUENCY_MS_EL 2000
 #define STALL_CHECK_DEGREES_THRESHOLD_EL 2
-
+  
 //#define SET_I2C_BUS_SPEED 800000L // Can set up to 800 kHz, depending on devices.  800000L = 800 khz, 400000L = 400 khz.  Default is 100 khz
 
 #define ROTATIONAL_AND_CONFIGURATION_CMD_IGNORE_TIME_MS 5000 // if OPTION_ALLOW_ROTATIONAL_AND_CONFIGURATION_CMDS_AT_BOOT_UP is enabled, ignore configuration and rotational command for this many mS after boot up
@@ -362,7 +359,7 @@ You can tweak these, but read the online documentation!
 
 // Added in 2020.07.24.01
 #define SATELLITE_UPDATE_ARRAY_ORDER_INTERVAL_MS 5000
-#define SATELLITE_TRACKING_UPDATE_INTERVAL 5000
+#define SATELLITE_TRACKING_UPDATE_INTERVAL 5000 // This is only written to the configuration upon first boot of the code or when EEPROM_MAGIC_NUMBER is changed in rotator.h
 
 // Added in 2020.07.25.01
 #define LCD_SATELLITE_TRACKING_ROW 4
@@ -389,5 +386,3 @@ You can tweak these, but read the online documentation!
 #define SATELLITE_CALC_STAGE_3_RESOLUTION_SECS 1
 
 #define NEXTION_GSC_STARTUP_DELAY 0
-
-
