@@ -110,13 +110,13 @@ You can tweak these, but read the online documentation!
 #define AZIMUTH_TOLERANCE 3.0            // rotator will stop within X degrees when doing autorotation
 #define ELEVATION_TOLERANCE 0.1 //1.0
 
-#define OPERATION_TIMEOUT 120000        // timeout for any rotation operation in mS ; 120 seconds is usually enough unless you have the speed turned down
+   #define OPERATION_TIMEOUT 120000        // timeout for any rotation operation in mS ; 120 seconds is usually enough unless you have the speed turned down
 #define MASTER_REMOTE_LINK_PING_TIME_MS 5000
 
 #define TIMED_INTERVAL_ARRAY_SIZE 20
 
-#define LCD_COLUMNS 20 //16
-#define LCD_ROWS 4 //2       // this is automatically set below for HARDWARE_EA4TX_ARS_USB and HARDWARE_M0UPU
+#define LCD_COLUMNS 16
+#define LCD_ROWS 2       // this is automatically set below for HARDWARE_EA4TX_ARS_USB and HARDWARE_M0UPU
 #define LCD_UPDATE_TIME 1000           // LCD update time in milliseconds
 #define LCD_HHMM_CLOCK_POSITION LEFT          //LEFT or RIGHT
 #define LCD_HHMMSS_CLOCK_POSITION LEFT          //LEFT or RIGHT
@@ -132,19 +132,19 @@ You can tweak these, but read the online documentation!
 #define LCD_SUN_TRACKING_ROW 4                                    // LCD display row for OPTION_DISPLAY_SUN_TRACKING_CONTINUOUSLY
 #define LCD_SUN_TRACKING_UPDATE_INTERVAL 5000
 #define LCD_MOON_OR_SUN_OR_SAT_TRACKING_CONDITIONAL_ROW 3                // LCD display row for OPTION_DISPLAY_MOON_OR_SUN_OR_SAT_TRACKING_CONDITIONAL
-#define SPLASH_SCREEN_TIME 3000
+#define SPLASH_SCREEN_TIME 1000
 #define LCD_PERIODIC_REDRAW_TIME_SECS 0      // set to 0 to totally disable periodically redrawing the screen
 #define LCD_CLEAR_BEFORE_REDRAW 1            // set to 0 to disable doing a clear before redraw
 #define LCD_REDRAW_UPON_COMMANDS 0           // set to 1 to enable screen redraws upon commands and button presses
 
 #define LCD_HEADING_ROW 2
-#define LCD_HEADING_FIELD_SIZE 20
+#define LCD_HEADING_FIELD_SIZE 16
 #define LCD_AZ_ONLY_HEADING_ROW 1
-#define LCD_AZ_ONLY_HEADING_FIELD_SIZE 20
+#define LCD_AZ_ONLY_HEADING_FIELD_SIZE 16
 #define LCD_EL_ONLY_HEADING_ROW 2
-#define LCD_EL_ONLY_HEADING_FIELD_SIZE 20
+#define LCD_EL_ONLY_HEADING_FIELD_SIZE 16
 #define LCD_STATUS_ROW 1
-#define LCD_STATUS_FIELD_SIZE 20
+#define LCD_STATUS_FIELD_SIZE 16
 #define LCD_DIRECTION_ROW 1
 #define LCD_HHMMSS_CLOCK_ROW 1
 #define LCD_HHMM_CLOCK_ROW 1
@@ -267,12 +267,8 @@ You can tweak these, but read the online documentation!
 //   #define AZIMUTH_CALIBRATION_TO_ARRAY {359,0}
 
 
-#define ELEVATION_CALIBRATION_FROM_ARRAY {-360,0,360}
-#define ELEVATION_CALIBRATION_TO_ARRAY {-360,0,360}
-
-// example: reverse elevation sensing
-//#define ELEVATION_CALIBRATION_FROM_ARRAY {0,180,360}
-//#define ELEVATION_CALIBRATION_TO_ARRAY {180,0,-180}
+#define ELEVATION_CALIBRATION_FROM_ARRAY {-180,0,180}
+#define ELEVATION_CALIBRATION_TO_ARRAY {-180,0,180}
 
 #define ANALOG_OUTPUT_MAX_EL_DEGREES 180
 
@@ -299,10 +295,10 @@ You can tweak these, but read the online documentation!
 #define POLOLU_LSM_303_MAX_ARRAY {+909, +491, +14}
 
 #define AUTOCORRECT_TIME_MS_AZ 1000
-#define AUTOCORRECT_TIME_MS_EL 1000
+#define AUTOCORRECT_TIME_MS_EL 1000 
 
 #define PIN_LED_ACTIVE_STATE HIGH
-#define PIN_LED_INACTIVE_STATE LOW   
+#define PIN_LED_INACTIVE_STATE LOW 
 
 #define AUDIBLE_ALERT_TYPE 1   // 1 = Logic high/low (set AUDIBLE_PIN_ACTIVE_STATE and AUDIBLE_PIN_INACTIVE_STATE below, 2 = tone (set AUDIBLE_PIN_TONE_FREQ below)
 #define AUDIBLE_ALERT_DURATION_MS 250
@@ -314,9 +310,9 @@ You can tweak these, but read the online documentation!
 #define AUDIBLE_ALERT_AT_EL_TARGET 1    // factory default setting
 
 #define OVERLAP_LED_ACTIVE_STATE HIGH
-#define OVERLAP_LED_INACTIVE_STATE LOW  
+#define OVERLAP_LED_INACTIVE_STATE LOW   
 
-#define PRESET_ENCODER_CHANGE_TIME_MS 2000 
+#define PRESET_ENCODER_CHANGE_TIME_MS 2000  
 
 // FEATURE_AZ_ROTATION_STALL_DETECTION
 #define STALL_CHECK_FREQUENCY_MS_AZ 2000
@@ -324,7 +320,7 @@ You can tweak these, but read the online documentation!
 // FEATURE_EL_ROTATION_STALL_DETECTION
 #define STALL_CHECK_FREQUENCY_MS_EL 2000
 #define STALL_CHECK_DEGREES_THRESHOLD_EL 2
-
+  
 //#define SET_I2C_BUS_SPEED 800000L // Can set up to 800 kHz, depending on devices.  800000L = 800 khz, 400000L = 400 khz.  Default is 100 khz
 
 #define ROTATIONAL_AND_CONFIGURATION_CMD_IGNORE_TIME_MS 5000 // if OPTION_ALLOW_ROTATIONAL_AND_CONFIGURATION_CMDS_AT_BOOT_UP is enabled, ignore configuration and rotational command for this many mS after boot up
@@ -389,5 +385,3 @@ You can tweak these, but read the online documentation!
 #define SATELLITE_CALC_STAGE_3_RESOLUTION_SECS 1
 
 #define NEXTION_GSC_STARTUP_DELAY 0
-
-

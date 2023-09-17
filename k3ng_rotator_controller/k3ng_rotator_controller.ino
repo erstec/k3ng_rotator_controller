@@ -5956,7 +5956,9 @@ void update_lcd_display(){
 
   // OPTION_DISPLAY_DIRECTION_STATUS - azimuth direction display ***********************************************************************************
   #if defined(OPTION_DISPLAY_DIRECTION_STATUS)   
-  strcpy(workstring,azimuth_direction(azimuth));  // TODO - add left/right/center
+  strcpy(workstring, "> ");
+  strcat(workstring, azimuth_direction(azimuth));  // TODO - add left/right/center
+  strcat(workstring," <");
   k3ngdisplay.print_center_fixed_field_size(workstring,LCD_DIRECTION_ROW-1,LCD_STATUS_FIELD_SIZE);
   #endif //defined(OPTION_DISPLAY_DIRECTION_STATUS)
 
@@ -6029,7 +6031,7 @@ void update_lcd_display(){
           }      
         #endif   
         strcat(workstring,workstring2);
-        if (DISPLAY_DECIMAL_PLACES > 1){
+        if (DISPLAY_DECIMAL_PLACES < 1){
           if (LCD_COLUMNS > 14) {
             strcat(workstring,LCD_DISPLAY_DEGREES_STRING);
           }
@@ -6053,7 +6055,7 @@ void update_lcd_display(){
         if (elevation < 10){strcat(workstring," ");}    
       #endif //OPTION_LCD_HEADING_FIELD_FIXED_DECIMAL_PLACE  
       strcat(workstring,workstring2);
-      if (DISPLAY_DECIMAL_PLACES > 1){
+      if (DISPLAY_DECIMAL_PLACES < 1){
         if (LCD_COLUMNS > 14) {
           strcat(workstring,LCD_DISPLAY_DEGREES_STRING);
         }
@@ -10972,7 +10974,8 @@ void initialize_display(){
     #endif
 
     #ifdef OPTION_DISPLAY_VERSION_ON_STARTUP 
-      k3ngdisplay.print_center_timed_message((char *)"\x4B\x33\x4E\x47",(char *)"\x52\x6F\x74\x6F\x72\x20\x43\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72",(char *)CODE_VERSION,SPLASH_SCREEN_TIME);
+      //k3ngdisplay.print_center_timed_message((char *)"\x4B\x33\x4E\x47",(char *)"\x52\x6F\x74\x6F\x72\x20\x43\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72",(char *)CODE_VERSION,SPLASH_SCREEN_TIME);
+      k3ngdisplay.print_center_timed_message((char *)"LY1BWB/LY5N",(char *)"\x52\x6F\x74\x6F\x72\x20\x43\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72",(char *)CODE_VERSION,SPLASH_SCREEN_TIME);
     #else
       k3ngdisplay.print_center_timed_message((char *)"\x4B\x33\x4E\x47",(char *)"\x52\x6F\x74\x6F\x72\x20\x43\x6F\x6E\x74\x72\x6F\x6C\x6C\x65\x72",SPLASH_SCREEN_TIME);
     #endif
